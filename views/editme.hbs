@@ -1,0 +1,196 @@
+<head>
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Tangerine">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    		<script src="/javascripts/jscolor.js"></script>
+    		
+  </head>
+  
+  <style>
+      
+      body {
+          
+          background-color:#f2f2f2;
+          
+      }
+      
+      .editpic {
+          
+          border:6px solid #FFF;
+          
+          
+      }
+      
+      .editpic:hover {
+          
+          border: 6px dashed #3366ff;
+          cursor:pointer;
+          
+      }
+      
+  </style>
+ 
+
+
+<div class="topnav polaroid">
+    
+    <img src = "/images/fsn.png" style = "float:left; padding-top:5px; padding-left:20px">
+  
+  <div style = "padding: 14px 16px; float:right; color:#FFF; ">
+      <button class="dropbtn zoom"><a href="/" style = "color:#FFF"><span class="glyphicon glyphicon-home" aria-hidden="true"></span></a></button>
+      &nbsp;
+  <button class="dropbtn zoom"><a href="/profile" style = "color:#FFF"><span class="glyphicon glyphicon-user" aria-hidden="true"></span></a></button>
+  &nbsp;
+    <button class="dropbtn zoom"><a href="/notifications" style = "color:#FFF"><span class="  glyphicon glyphicon-bookmark" aria-hidden="true"></span></a></button>
+  &nbsp;
+  </div>
+</div>
+
+<div style = "position:relative;">
+    
+    <img src = "{{user.header}}" style = "width:100%; bottom:-280px ;border-bottom:80px solid #FFF;position:absolute" class = "polaroid">
+    
+    <div class="image-upload">
+    <label for="file-input">
+           <img id = "pp" src = "{{user.avi}}" style = "border-radius:50px; float:left;position:absolute; left:30px; top:200px;width:170px" class = "polaroid editpic">
+    </label>
+
+    <input id = "file-input" type="file" onchange="upload(this.files[0])">
+</div>
+
+
+<script>
+    /* Drag'n drop stuff */
+    function upload(file) {
+        /* Is the file an image? */
+        if (!file || !file.type.match(/image.*/)) return;
+        /* It is! */
+        document.body.className = "uploading";
+        /* Lets build a FormData object*/
+        var fd = new FormData(); // I wrote about it: https://hacks.mozilla.org/2011/01/how-to-develop-a-html5-image-uploader/
+        fd.append("image", file); // Append the file
+        var xhr = new XMLHttpRequest(); // Create the XHR (Cross-Domain XHR FTW!!!) Thank you sooooo much imgur.com
+        xhr.open("POST", "https://api.imgur.com/3/image.json"); // Boooom!
+        xhr.onload = function() {
+            // Big win!
+            document.querySelector("#link").href = JSON.parse(xhr.responseText).data.link;
+            document.querySelector("#url").value = JSON.parse(xhr.responseText).data.link;
+            var linkval=JSON.parse(xhr.responseText).data.link;
+            document.body.className = "uploaded";
+            var newpp = document.getElementById("pp").src=linkval;
+        }
+        
+        xhr.setRequestHeader('Authorization', 'Client-ID 9fa1779f17f318a'); // Get your own key http://api.imgur.com/
+        
+        // Ok, I don't handle the errors. An exercise for the reader.
+        /* And now, we send the formdata */
+        xhr.send(fd);
+    }
+</script>
+
+    <style>
+    #url {display: inline}
+    #link {display: none}
+    #link1 {display:none}
+    .uploaded #link {display: none}
+    #update {display: none}
+    .uploaded #update {display: inline}
+    .uploading #link1 {display: none}
+    #url {display:none}
+</style>
+<br><br>
+<p id="link">Image Uploaded Succesfully!</p>
+<p id="link1">Uploading...</p>
+     
+    
+    <h1 style = "top:240px; left: 240px; position:absolute"><input style = "font-size:20px" name = "namebox" value = "{{user.name}}">{{#if user.verified}}&nbsp;<img src = "https://packagedeals.klm.com/sites/default/files/highlights/Check_mark_blue.png" style = "width:30px;vertical-align: text-top">{{/if}}</h1>
+    <h2 style = "top:275px; left: 240px; position:absolute; color:#808080">@<input style = "font-size:15px" name = "usernamebox" value = "{{user.username}}"></h2>
+    
+    
+    
+</div>
+
+<!---ectra!-->
+
+<div style = "border:1px solid #cccccc; width:80%; background-color:#FFF; margin-right:30px;padding: 2%; border-radius:5px;float:right;font-size:15px;margin-top:350px" >
+<input style = "color:#000" id="url" name="avibox" value = {{user.avi}}>
+<h2><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>&nbsp;&nbsp;About</h2>
+
+<hr style = "border:0.5px solid #cccccc">
+
+<br>
+
+<div>
+<div style = "text-align:center; font-size:17px"><b><input style = "font-size:20px; width:100%; text-align:center" name = "biobox" value = "{{user.bio}}"></b></div>
+<br><br>
+<span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>&nbsp;&nbsp;<input name = "locationbox" value = "{{user.location}}">
+<br><br>
+&nbsp;<span class="fa fa-intersex" aria-hidden="true"></span>&nbsp;&nbsp;
+
+{{#ifeq user.gender "Male"}}
+<select name = "genderbox">
+  <option value="male" selected>Male</option>
+  <option value="female">Female</option>
+</select>
+{{else}}
+<select>
+  <option value="male">Male</option>
+  <option value="female" selected>Female</option>
+</select>
+{{/ifeq}}
+
+
+</div>
+</div>
+
+<div><br style = "line-height:4600%"></div>
+
+<div class = "grid">
+{{#each posts}}
+<div style = "border:1px solid #cccccc; background-color:#FFF; padding: 2%; border-radius:5px; margin-left:20px;float:left;margin-top:10px" class = "grid-item">
+
+{{#each author}}
+
+<img src = "{{avi}}" width = 70px style = "border:2px solid #FFF; border-radius:10px; float:left;" class = "polaroid">
+&nbsp;
+<font size = 5px><a href = "/user/{{username}}" style = "text-decoration:none; color:#3366ff"><b>{{name}}</b></a></font>
+<br>
+&nbsp;
+<font size = 4px style = "color:#b3b3b3">@{{username}}</font>
+<br>
+&nbsp;
+<font size = 3px style = "color:#b3b3b3"><span class="glyphicon glyphicon-time" style = "font-size:13px" aria-hidden="true"></span>&nbsp;{{formatDate ../created  day="numeric" month="long" year="numeric"}}</font>
+<br><br><br>
+<font size = 4px ><b>{{{../content}}}</b></font>
+
+<br><br><hr style = "border:0.5px solid #cccccc">
+
+<button class = "submit" style = "width:25%"><span class="glyphicon glyphicon-thumbs-up" style = "font-size:10px" aria-hidden="true"></span>&nbsp;&nbsp;Like | 545</button>
+<button class = "submit" style = "width:25%"><span class="glyphicon glyphicon-thumbs-down" style = "font-size:10px" aria-hidden="true"></span>&nbsp;&nbsp;Disike | 29</button>
+
+{{/each}}
+
+
+</div>
+{{/each}}
+</div>
+
+<br style = "line-height:70px">
+
+<script src="https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.min.js"></script>
+<script>
+    
+    var elem = document.querySelector('.grid');
+var iso = new Isotope( elem, {
+  // options
+  itemSelector: '.grid-item',
+  layoutMode: 'fitRows'
+});
+
+// element argument can be a selector string
+//   for an individual element
+var iso = new Isotope( '.grid', {
+  // options
+});
+    
+    
+</script>

@@ -1,3 +1,38 @@
-<h1>{{message}}</h1>
-<h2>{{error.status}}</h2>
-<pre>{{error.stack}}</pre>
+  <head>
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Tangerine">
+  </head>
+  
+  <style>
+      
+      body {
+          
+          background-image:url("https://www.mbaworld.com/-/media/Images/Events-images/2017/Webinars/Standing-Out-From-The-Crowd/Standing-out-from-the-crowd-page-image.ashx?la=en&hash=667B5E5E63C286FB8F366B61280AF6380C8F82E1");
+          
+      }
+      
+  </style>
+
+<div class="topnav polaroid">
+    
+    <img src = "/images/fsn.png" style = "float:left; padding-top:5px; padding-left:20px">
+
+</div>
+
+<br><br><br><br><br><br>
+
+<center>
+<div style = "border:0px solid #000; width:80%; background-color:#FFF; padding: 2%; padding-right:3%;margin-bottom:100px" class = "polaroid">
+
+    <h1>You broke the site!</h1>
+<h2>Error Code {{error.status}}</h2>
+<br>
+<h4>Here's some mumbo jumbo extra info if you're interested:</h4>
+<pre><i>{{error.stack}}</i></pre>
+
+<br>
+
+<a href = "javascript:history.back()" class = "button">Take me back!</a>
+
+</div>
+
+</center>

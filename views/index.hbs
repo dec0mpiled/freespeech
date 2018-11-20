@@ -1,2 +1,60 @@
-<h1>{{title}}</h1>
-<p>Welcome to {{title}}</p>
+  <head>
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Tangerine">
+  </head>
+  
+  <style>
+      
+      body {
+          
+          background-image:url("https://www.mbaworld.com/-/media/Images/Events-images/2017/Webinars/Standing-Out-From-The-Crowd/Standing-out-from-the-crowd-page-image.ashx?la=en&hash=667B5E5E63C286FB8F366B61280AF6380C8F82E1");
+          
+      }
+      
+  </style>
+
+<div class="topnav polaroid">
+    
+    <img src = "/images/fsn.png" style = "float:left; padding-top:5px; padding-left:20px">
+
+
+  
+  <form action="/auth/login" method="post" style = "padding: 14px 16px; float:right; color:#FFF">
+      Already with us?&nbsp;&nbsp;&nbsp;
+<input style = "text-align:center" name = "username" placeholder="Username">
+<input style = "text-align:center"  name = "password" type = "password" placeholder="Password">
+<button class = "button-small">Login</button>
+</form>
+</div>
+
+<br><br><br><br><br><br>
+
+<div style = "float:right;margin-right:5%; border:0px solid #000; width:40%; background-color:#FFF; padding: 2%; padding-right:3%" class = "polaroid">
+
+ <form action="/auth/register" method="post">
+
+    <h1>Register on the Free Speech Network Today</h1>
+    <br>
+    <input style = "padding: 10px; width: 45%;font-size:20px" name = "fname" placeholder = "Enter Your First Name">
+    <input style = "padding: 10px; width: 45%;font-size:20px" name = "lname" placeholder = "Enter Your Last Name">
+    <br> <br>
+        <input style = "padding: 10px; width: 100%;font-size:20px" name = "email" placeholder = "Enter Your Email Address">
+         <br> <br>
+            <input style = "padding: 10px; width: 100%;font-size:20px" name = "username" placeholder = "Enter Your Desired Username">
+            
+            <br><br>
+            <input style = "padding: 10px; width: 100%;font-size:20px" name = "password" type = "password" placeholder = "Enter Your Desired Password">
+            
+            <br><br>
+    <button style = "font-size:20px;width:45%;" class="button">Register Account</button>
+    
+    
+    {{#if info}}
+    <br><br>
+    
+    <font color = "red">{{info}}</font>
+    
+    {{/if}}
+    
+    </form>
+
+</div>

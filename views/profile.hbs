@@ -1,0 +1,185 @@
+<head>
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Tangerine">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    		<script src="/javascripts/jscolor.js"></script>
+  		
+  </head>
+  
+  
+  <style>
+      
+      body {
+          
+          background-color:#f2f2f2;
+          
+      }
+      
+  </style>
+
+
+<div class="topnav polaroid">
+    
+    <img src = "/images/fsn.png" style = "float:left; padding-top:5px; padding-left:20px">
+  
+  <div style = "padding: 14px 16px; float:right; color:#FFF; ">
+      <button class="dropbtn zoom"><a href="/" style = "color:#FFF"><span class="glyphicon glyphicon-home" aria-hidden="true"></span></a></button>
+      &nbsp;
+  <button class="dropbtn zoom"><a href="/profile" style = "color:#FFF"><span class="glyphicon glyphicon-user" aria-hidden="true"></span></a></button>
+  &nbsp;
+    <button class="dropbtn zoom"><a href="/notifications" style = "color:#FFF"><span class="  glyphicon glyphicon-bookmark" aria-hidden="true"></span></a></button>
+  &nbsp;
+  </div>
+</div>
+
+
+  
+
+
+<div style = "position:relative;">
+    
+    <img src = "{{user.header}}" style = "width:100%; bottom:-330px ;border-bottom:80px solid #FFF;position:absolute" class = "polaroid">
+
+    <img src = "{{user.avi}}" id = "avi" style = "border:6px solid #FFF; border-radius:50px; float:left;position:absolute; left:30px; top:200px;width:170px" class = "polaroid">
+    
+    <h1 style = "top:240px; left: 240px; position:absolute">{{user.name}}{{#if user.verified}}&nbsp;<img src = "https://packagedeals.klm.com/sites/default/files/highlights/Check_mark_blue.png" style = "width:30px;vertical-align: text-top">{{/if}}</h1>
+    <h2 style = "top:275px; left: 240px; position:absolute; color:#808080">@{{user.username}}</h2>
+    
+    <a href = "/editprofile"><h2 style = "top:260px;margin-right:30px; float:right;position:relative; color:#808080"><span class="glyphicon glyphicon-cog rah" aria-hidden="true"></span></h2></a>
+    
+    
+</div>
+
+<div></div>
+
+<div style = "border:1px solid #cccccc; width:63%; background-color:#FFF; padding: 2%; border-radius:5px; margin-left:20px;float:left;margin-top:400px">
+
+<form id = "publish_form" name = "publish_form" action="/publish/profile" method="post">
+<textarea name = "contentbox" rows="9" class = "bigbox" placeholder = "Write something creative, inspiring, funny..."></textarea>
+<br><br>
+<button style = "float:left;vertical-align: baseline" class = "submit">Add Photo&nbsp;&nbsp;<span class="glyphicon glyphicon-folder-open" aria-hidden="true"></span> </button>
+<button style = "float:right;vertical-align: baseline" class = "submit">Post</button>
+</form>
+
+<img src = "">
+
+</div>
+
+
+<!---ectra!-->
+
+<div style = "border:1px solid #cccccc; width:25%; background-color:#FFF; padding: 2%; border-radius:5px;float:right;margin-right:30px; font-size:15px;margin-top:335px" >
+
+<h2><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>&nbsp;&nbsp;About</h2>
+
+<hr style = "border:0.5px solid #cccccc">
+
+<br>
+
+<div>
+<div style = "text-align:center; font-size:17px"><b>{{user.bio}}</b></div>
+<br><br>
+<span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>&nbsp;&nbsp;{{user.location}}
+<br><br>
+&nbsp;<span class="fa fa-intersex" aria-hidden="true"></span>&nbsp;&nbsp;{{user.gender}}
+</div>
+</div>
+
+<div><br style = "line-height:4500%"></div>
+
+<div class = "grid">
+{{#each posts}}
+<div style = "border:1px solid #cccccc; background-color:#FFF; padding: 2%; border-radius:5px; margin-left:20px;float:left;margin-top:20px; padding-bottom:15px;padding-top:15px;" class = "grid-item">
+
+{{#each author}}
+
+{{#ifeq username ../../user.username}}
+
+<div class="dropdown" style = "float:right">
+  <span class="glyphicon glyphicon-option-horizontal" style = "float:right" aria-hidden="true"></span>
+  <div class="dropdown-content">
+    <a href="#">Edit Post</a>
+    <a href="/deletepost/{{../id}}/profile" style = "color:red">Delete Post</a>
+  </div>
+</div>
+
+{{/ifeq}}
+
+<img src = "{{avi}}" width = 70px style = "border:2px solid #FFF; border-radius:10px; float:left;" class = "polaroid">
+&nbsp;
+<font size = 5px><a href = "/user/{{username}}" style = "text-decoration:none; color:#3366ff"><b>{{name}}</b></a>{{#if ../../user.verified}}&nbsp;<img src = "https://packagedeals.klm.com/sites/default/files/highlights/Check_mark_blue.png" style = "width:24px;vertical-align: text-top">{{/if}}</font>
+<br>
+&nbsp;
+<font size = 4px style = "color:#b3b3b3">@{{username}}</font>
+<br>
+&nbsp;
+<font size = 3px style = "color:#b3b3b3"><span class="glyphicon glyphicon-time" style = "font-size:13px" aria-hidden="true"></span>&nbsp;{{formatDate ../created  day="numeric" month="long" year="numeric"}}</font>
+
+<br><br><br>
+<font size = 4px class = "dont-break-out"><b>{{{../content}}}</b></font>
+
+<br><br><hr style = "border:0.5px solid #cccccc">
+
+<button class = "submit" style = "width:20%"><span class="glyphicon glyphicon-thumbs-up" style = "font-size:10px" aria-hidden="true"></span>&nbsp;&nbsp;Like</button>
+<button class = "submit" style = "width:20%"><span class="glyphicon glyphicon-thumbs-down" style = "font-size:10px" aria-hidden="true"></span>&nbsp;&nbsp;Dislike</button>
+<button class = "submit" style = "width:20%"><span class="glyphicon glyphicon-comment" style = "font-size:10px" aria-hidden="true"></span>&nbsp;&nbsp;Respond</button>
+<button class = "submit" style = "width:20%"><span class="glyphicon glyphicon-retweet" style = "font-size:10px" aria-hidden="true"></span>&nbsp;&nbsp;Repost</button>
+
+
+
+<br><br>
+
+<font style = "font-weight:bold">Likes: {{../likes}} - Dislikes: {{../dislikes}} - Responses: {{../responses}} - Reposts: {{../shares}}</font>
+
+{{#if ../haslink}}
+
+<br><br>
+
+{{#each ../link}} 
+<div class="tooltip" style = "width:100%">
+
+<a href = {{url}} style = "text-decoration:none; color:#000">
+<div style = "background-color:#f2f2f2; padding:2%;border-radius:10px">
+
+<img src = "{{icon}}" style = "float:left;padding-right:10px;width:30px">
+<font size=5px style = "font-weight:bold">{{title}}</font>
+<br>
+<font size=2px class = "dont-break-out">{{url}}</font>
+
+<span class="tooltiptext"><img src = "http://api.screenshotmachine.com/?key=2cdd36&dimension=500x250&url={{url}}"></span></div>
+
+</div>
+</a>
+
+{{/each}}
+
+{{/if}}
+
+{{/each}}
+
+
+</div>
+
+{{/each}}
+
+</div>
+
+<br style = "line-height:70px">
+
+<script src="https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.min.js"></script>
+<script>
+    
+    var elem = document.querySelector('.grid');
+var iso = new Isotope( elem, {
+  // options
+  itemSelector: '.grid-item',
+  layoutMode: 'fitRows'
+});
+
+// element argument can be a selector string
+//   for an individual element
+var iso = new Isotope( '.grid', {
+  // options
+});
+    
+    
+</script>

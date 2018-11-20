@@ -1,0 +1,19 @@
+       // reset password!!
+       
+        sanitizedUser.setPassword(newPasswordString, function(){
+            sanitizedUser.save();
+            res.status(200).json({message: 'password reset successful'});
+        });
+        
+        -------------------------------------------------------
+        
+           User.findOne({username:"a"}, function(err, user) {
+    
+    if (err) return next (err);
+    
+            user.setPassword("rahh", function(){
+            user.save();
+            console.log("password set for " + user.name);
+        });
+    
+  });
